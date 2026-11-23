@@ -18,19 +18,35 @@
 }
 :root[data-theme="dark"]{--bg:#0B1A25;--surface:#12293A;--text:#EAF6FD;--muted:#9DB9CB;--line:#214257;--btn:#4DC3FA;--on-btn:#0E2433}
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth;background:linear-gradient(#4DC3FA 0 env(safe-area-inset-top,0px),var(--bg) 0)}
+html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px));scroll-behavior:smooth;background:linear-gradient(#0A121A 0 env(safe-area-inset-top,0px),var(--bg) 0)}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.7;padding-bottom:100px}
 button,select,input{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--text);outline-offset:2px}
 
-.hero{position:relative;background:var(--brand);color:var(--on-brand);padding:22px 22px 110px;clip-path:polygon(0 0,100% 0,100% 90%,0 100%);overflow:hidden}
-.hero-in{position:relative;max-width:960px;margin:0 auto}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.02em;direction:ltr;justify-content:flex-end}
-.brand svg{width:26px;height:34px;fill:var(--on-brand)}
-.hero h1{font-weight:800;font-size:clamp(30px,7.6vw,56px);line-height:1.35;margin:48px 0 14px;max-width:13em}
-.hero p{margin:0 0 26px;max-width:24em;font-size:18px}
-.cta{display:inline-block;background:var(--on-brand);color:#fff;font-weight:700;padding:14px 28px;border-radius:30px;text-decoration:none}
-.mark{position:absolute;inset-inline-end:-40px;bottom:-30px;width:330px;height:430px;fill:#fff;opacity:.28}
+.topbar{position:fixed;top:0;inset-inline:0;z-index:7;display:flex;align-items:center;justify-content:space-between;padding:calc(8px + env(safe-area-inset-top,0px)) 10px 8px;background:rgba(8,16,24,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff}
+.tools{display:flex}
+.ib{position:relative;width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:#fff;display:grid;place-items:center;cursor:pointer}
+.ib svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.logo{display:flex;align-items:center;gap:8px;direction:ltr;color:#fff;text-decoration:none;font-weight:800;letter-spacing:.06em;font-size:18px}
+.logo svg{width:20px;height:26px;fill:var(--brand)}
+.hero{position:relative;min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;background:#0A121A;color:#fff;padding:90px 22px 110px;overflow:hidden;clip-path:polygon(0 0,100% 0,100% 95%,0 100%)}
+.bgs{position:absolute;inset:0;display:flex}
+.bgs img{flex:1;min-width:0;height:100%;object-fit:cover;filter:grayscale(1) brightness(.45)}
+.bgs::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,18,26,.5),rgba(10,18,26,.92))}
+.hero-in{position:relative;max-width:560px}
+.hero h1{font-weight:800;font-size:clamp(46px,16vw,96px);line-height:1;letter-spacing:.03em;margin:0;direction:ltr}
+.wear{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px;direction:ltr;font-weight:500;letter-spacing:.3em;font-size:clamp(13px,3.6vw,18px)}
+.wear i{flex:0 1 38px;height:2px;background:#fff;display:block}
+.stroke{width:min(220px,58%);height:24px;margin:6px auto 0;display:block}
+.stroke path{fill:none;stroke:var(--brand);stroke-width:5;stroke-linecap:round}
+.slogan{margin:20px auto 0;max-width:22em;font-size:17px;line-height:1.8;color:#E3EDF4}
+.cta{display:inline-block;margin-top:26px;border:2px solid #fff;color:#fff;background:transparent;font-weight:700;padding:14px 34px;border-radius:32px;text-decoration:none;font-size:17px}
+.mshade{position:fixed;inset:0;background:rgba(5,15,22,.6);display:none;z-index:11}.mshade.on{display:block}
+.drawer{position:fixed;top:0;bottom:0;inset-inline-start:0;width:min(78vw,320px);background:var(--bg);color:var(--text);z-index:12;padding:calc(16px + env(safe-area-inset-top,0px)) 18px 18px;transform:translateX(105%);visibility:hidden;transition:transform .25s ease,visibility .25s;overflow-y:auto}
+.drawer.on{transform:none;visibility:visible}
+@media (prefers-reduced-motion:reduce){.drawer{transition:none}}
+.drawer h2{display:flex;justify-content:space-between;align-items:center;font-size:22px}
+.dl button{display:block;width:100%;text-align:start;min-height:52px;padding:0 6px;border:0;border-bottom:1px solid var(--line);background:transparent;font-size:18px;font-weight:500;cursor:pointer}
 
 main{max-width:960px;margin:0 auto;padding:30px 18px 0}
 h2{font-weight:800;font-size:28px;margin:0 0 14px}
@@ -71,8 +87,6 @@ label{display:block;margin:12px 0 4px;font-weight:500;font-size:15px}
 .send{display:block;margin-top:18px;min-height:54px;line-height:54px;text-align:center;border-radius:27px;background:var(--btn);color:var(--on-btn);font-weight:700;font-size:17px;text-decoration:none}
 .err{color:#D64533;font-size:15px;margin:10px 0 0;min-height:1.4em}.copy{display:block;width:100%;margin-top:10px;min-height:48px;border:1.5px solid var(--line);border-radius:27px;background:transparent;font-weight:500;cursor:pointer}.alt{color:var(--muted);font-size:14px;margin:10px 0 0;text-align:center}
 .search{width:100%;min-height:50px;padding:0 20px;border:1.5px solid var(--line);border-radius:25px;background:var(--surface);margin-bottom:14px}
-.cartbtn{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));inset-inline-end:14px;z-index:6;width:48px;height:48px;border-radius:50%;border:0;background:var(--btn);color:var(--on-btn);display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.25)}
-.cartbtn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .badge{position:absolute;top:-4px;inset-inline-end:-4px;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:#D64533;color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}.badge[hidden]{display:none}
 .who{display:flex;gap:10px;align-items:center;min-width:0}.th{width:48px;height:60px;object-fit:cover;border-radius:8px;flex:none}
 .inc{color:var(--muted);font-size:13px;min-height:1.2em;margin-top:6px}.grid .note{grid-column:1/-1}
@@ -89,14 +103,22 @@ footer{max-width:960px;margin:28px auto 0;padding:0 18px;color:var(--muted);font
   <symbol id="dress" viewBox="0 0 100 100"><path d="M36 6h8q6 10 12 0h8l-6 34 18 56H24l18-56z"/></symbol>
 </svg>
 
-<button class="cartbtn" id="cartbtn" type="button" aria-label="السلة"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></svg><span class="badge" id="badge" hidden>0</span></button>
-<header class="hero">
-  <svg class="mark" viewBox="0 0 100 130" aria-hidden="true"><path d="M30 0H100L88 36H58L10 76Q0 66 8 52Z"/><path d="M62 42H100L84 108Q78 126 52 126Q16 126 2 102Q-1 92 8 88H26Q26 102 42 102Q52 102 54 90Z"/></svg>
+<div class="topbar">
+  <button class="ib" id="menubtn" type="button" aria-label="القايمة"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="logo" href="#top" aria-label="Joe Store"><svg viewBox="0 0 100 130" aria-hidden="true"><path d="M30 0H100L88 36H58L10 76Q0 66 8 52Z"/><path d="M62 42H100L84 108Q78 126 52 126Q16 126 2 102Q-1 92 8 88H26Q26 102 42 102Q52 102 54 90Z"/></svg><span>JOE STORE</span></a>
+  <div class="tools">
+    <button class="ib" id="searchbtn" type="button" aria-label="بحث"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button>
+    <button class="ib" id="cartbtn" type="button" aria-label="السلة"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></svg><span class="badge" id="badge" hidden>0</span></button>
+  </div>
+</div>
+<header class="hero" id="top">
+  <div class="bgs" id="bgs" aria-hidden="true"></div>
   <div class="hero-in">
-    <div class="brand"><svg viewBox="0 0 100 130" aria-hidden="true"><path d="M30 0H100L88 36H58L10 76Q0 66 8 52Z"/><path d="M62 42H100L84 108Q78 126 52 126Q16 126 2 102Q-1 92 8 88H26Q26 102 42 102Q52 102 54 90Z"/></svg>JOE STORE</div>
-    <h1>مهمتنا: ستايلك في الملعب ⚽️ والشارع! 🚶‍♂️</h1>
-    <p>رياضي 💪 و كاجوال 👕 بأعلى جودة ✨</p>
-    <a class="cta" href="#shop">شوف المنتجات</a>
+    <h1>JOE STORE</h1>
+    <div class="wear"><i></i><span>WEAR THE BEST</span><i></i></div>
+    <svg class="stroke" viewBox="0 0 240 24" aria-hidden="true"><path d="M4 17C60 6 150 4 236 12"/></svg>
+    <p class="slogan">مهمتنا: ستايلك في الملعب ⚽️ والشارع! 🚶‍♂️<br>رياضي 💪 و كاجوال 👕 بأعلى جودة ✨</p>
+    <a class="cta" href="#shop">تسوّق دلوقتي ←</a>
   </div>
 </header>
 
@@ -110,6 +132,8 @@ footer{max-width:960px;margin:28px auto 0;padding:0 18px;color:var(--muted);font
 <footer>الأسعار بالجنيه المصري. الشحن والدفع بنتفق عليهم معاك على واتساب.</footer>
 
 <div class="bar" id="bar"><button id="open" type="button"><span id="cnt"></span><span id="tot"></span></button></div>
+<div class="mshade" id="mshade"></div>
+<nav class="drawer" id="drawer" aria-label="الأقسام"><h2>الأقسام <button class="x" id="mclose" type="button" aria-label="اقفل">×</button></h2><div class="dl" id="mlinks"></div></nav>
 <div class="shade" id="shade"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="st">
   <div class="sheet-in">
@@ -204,6 +228,13 @@ $("copy").addEventListener("click",async()=>{
   try{await navigator.clipboard.writeText(t)}catch(_){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(__){}a.remove()}
   $("copy").textContent="اتنسخ ✓";setTimeout(()=>$("copy").textContent="انسخ الطلب",1800);
 });
+function openMenu(){$("drawer").classList.add("on");$("mshade").classList.add("on")}
+function closeMenu(){$("drawer").classList.remove("on");$("mshade").classList.remove("on")}
+$("mlinks").innerHTML=["الكل",...SECS.filter(s=>P.some(p=>p.sec===s))].map(s=>`<button type="button" data-s="${s}">${s}</button>`).join("");
+$("mlinks").addEventListener("click",e=>{const b=e.target.closest("button[data-s]");if(!b)return;sec=b.dataset.s;$("q").value="";shop();closeMenu();$("shop").scrollIntoView({behavior:"smooth"})});
+$("menubtn").onclick=openMenu;$("mclose").onclick=closeMenu;$("mshade").onclick=closeMenu;
+$("searchbtn").onclick=()=>{$("shop").scrollIntoView({behavior:"smooth"});setTimeout(()=>$("q").focus(),450)};
+$("bgs").innerHTML=[2,1,16].map(i=>`<img alt="" src="${P.find(p=>p.id===i).img}">`).join("");
 shop();render();
 </script>
 </body>
